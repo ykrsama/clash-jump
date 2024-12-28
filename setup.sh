@@ -1,11 +1,32 @@
 #!/usr/bin/bash
 
-function install() {
-    echo -e "\033[33mInstalling service\033[0m"
-    mkdir -p ~/.config/systemd/user
-    mkdir -p /tmp/$USER/clash/log
+curpwd=$(pwd)
+mypath=$(dirname $(realpath $0))
 
-    cat>~/.config/systemd/user/clash.service<<EOF
+function install() {
+    # Run the update script to download the subscription
+    echo -e "\033[33mRunning scripts/update_config.sh\033[0m"
+    COMMAND="${mypath}/scripts/update_config.sh"
+    ${COMMAND}
+
+    # Schedule the update script to run every hour
+    echo -e "\033[33mScheduling clash config subscription\033[0m"
+    SCHEDULE="0 * * * *"  # Every hour as an example
+    CRON_JOB="$SCHEDULE $COMMAND"
+    if crontab -l 2>/dev/null | grep -qF "$COMMAND"; then
+        echo "The cron job already exists (≧▽≦)"
+    else
+        # Add the new cron job
+        (crontab -l 2>/dev/null; echo "$CRON_JOB") | crontab -
+        echo "New cron job added \(=^-ω-^=)/"
+    fi
+
+    # Install the clash service
+    echo -e "\033[33mInstalling clash service\033[0m"
+    mkdir -p $HOME/.config/systemd/user
+    mkdir -p $HOME/.cache/clash/log
+
+    cat>$HOME/.config/systemd/user/clash.service<<EOF
 [Unit]
 Description=Clash Service
 After=network.target
@@ -14,8 +35,8 @@ After=network.target
 ExecStart=${clash}
 Restart=always
 WorkingDirectory=${mypath}
-StandardOutput=append:/tmp/$USER/clash/log/clash.log
-StandardError=append:/tmp/$USER/clash/log/clash.err
+StandardOutput=append:${HOME}/.cache/clash/log/service.log
+StandardError=append:${HOME}/.cache/clash/log/service.err
 EOF
 
     systemctl --user daemon-reload
@@ -24,7 +45,7 @@ EOF
 function ctl_clash() {
     if [[ $1 == "start" || $1 == "restart" ]]; then
         #mkdir -p log
-        if [[ ! -f "~/.config/systemd/user/clash.service" ]]; then
+        if [[ ! -f "$HOME/.config/systemd/user/clash.service" ]]; then
             install
         fi
     fi
@@ -36,12 +57,11 @@ function ctl_clash() {
 function uninstall() {
     echo -e "\033[33mUninstalling service\033[0m"
     ctl_clash "stop"
-    rm ~/.config/systemd/user/clash.service
+    rm $HOME/.config/systemd/user/clash.service
     systemctl --user daemon-reload
+    echo -e "\n\033[33mTodo: remove crontab job:\n$ crontab -e\033[0m"
 }
 
-curpwd=$(pwd)
-mypath=$(dirname $(realpath $0))
 cd $mypath
 
 source scripts/get_cpu_arch.sh &> /dev/null
@@ -63,11 +83,8 @@ else
 fi
 
 
-if [[ $1 == "test" ]]; then
-    $clash
-elif [[ $1 == "install" ]]; then
+if [[ $1 == "install" ]]; then
     install
-    ctl_clash "start"
 elif [[ $1 == "uninstall" ]]; then
     uninstall
 elif [[ $1 == "start" ]]; then
@@ -79,7 +96,7 @@ elif [[ $1 == "restart" ]]; then
 elif [[ $1 == "status" ]]; then
     ctl_clash "status"
 else
-    echo -e "\033[33mUsage: $0 [test|start|stop|restart|status|install|uninstall]\033[0m"
+    echo -e "\033[33mUsage: $0 [start|stop|restart|status|install|uninstall]\033[0m"
 fi
 
 cd $curpwd

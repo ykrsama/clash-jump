@@ -15,33 +15,12 @@ Setup clash on linux server without sudo, and use it as a proxy server.
 
    Note: Use browser to check your subscription link's content is in yaml format. If not, use [clashc.monode.xyz](https://clashc.monode.xyz) to convert the subscription link.
 
-2. Initialize the config file:
-
-   ```
-   ./scripts/update_config.sh
-   ```
-
-   This will download the config file from your `CLASH_SUBSCRIBE_URL` to `~/.config/clash/config.yaml`, and generate `scripts/clash-forward-mac.sh`
-
-3. Copy absolute path of the update_config.sh file:
-
-   ```
-   realpath scripts/update_config.sh
-   ```
-
-4. Use `crontab -e` to automatically update subscription on every hour:
-
-   ```bash
-   0 * * * * /path/to/scripts/update_config.sh
-   ```
-
-   Note: `crontab -l` to check the crontab list.
-
-5. Install and run service:
+2. Install and run service:
 
    ```
    ./setup.sh start
    ```
+
    This will create a systemd service `clash.service` . You can check the status by `./setup.sh status` or `systemctl --user status clash`.
 
 ## On local machine
@@ -102,5 +81,5 @@ curl -v google.com
 
 ## Debug
 
-See logs in `/tmp/$USER/clash/log/clash.log` and `/tmp/$USER/clash/log/clash.err`.
+See logs in `~/.cache/clash/log/service.log` and `~/.cache/clash/log/service.err` and web controller.
 
