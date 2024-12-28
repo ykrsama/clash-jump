@@ -1,7 +1,7 @@
 #!/bin/zsh
 
-proxy_port=43000
-controller_port=43001
+proxy_port=__CLASH_MIXED_PORT__
+controller_port=__CLASH_CTL_PORT__
 
 function cleanup() {
     echo "Resetting system proxy"

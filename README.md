@@ -21,7 +21,7 @@ Setup clash on linux server without sudo, and use it as a proxy server.
    ./scripts/update_config.sh
    ```
 
-   This will download the config file from your `CLASH_SUBSCRIBE_URL` to `~/.config/clash/config.yaml`
+   This will download the config file from your `CLASH_SUBSCRIBE_URL` to `~/.config/clash/config.yaml`, and generate `scripts/clash-forward-mac.sh`
 
 3. Copy absolute path of the update_config.sh file:
 
@@ -69,7 +69,39 @@ If no problem in step 1, 2 but step 3 failed, switch the proxy node (See **Web c
    ```
    This will create a systemd service `clash.service` . You can check the status by `./setup.sh status` or `systemctl --user status clash`.
 
-2. Setup port forwarding and system proxy on local machine. (for automation example, see `scripts/clash-forward-mac.sh`)
+2. Setup port forwarding and system proxy on local machine. 
+
+   **For mac user**:
+   - copy `scripts/clash-forward-mac.sh` to your local machine 
+   - run `./clash-forward-mac.sh` on local machine
+
+   **For windows user (Automation script WIP)**:
+   - Setup ssh-tunnel with Putty or MobaXterm or other tools.
+   - Set system proxy
+
+   **For linux user (Automation script WIP)**:
+   - Run the following command:
+   ```bash
+   PROXY_PORT='same as CLASH_MIXED_PORT' \
+   CTL_PORT='same as CLASH_CTL_PORT' \
+   ssh -N -L ${PROXY_PORT}:localhost:${PROXY_PORT} \
+       -L ${CTL_PORT}:localhost:${CTL_PORT} \
+       lxlogin  # Jump server hostname
+   ```
+   - Set system proxy
+
+3. Optional: set proxy on local terminal:
+
+   **mac/linux**:
+   ```bash
+   PROXY_PORT=<port1>; CTL_PORT=<port2>; export https_proxy=http://127.0.0.1:${PROXY_PORT} http_proxy=http://127.0.0.1:${PROXY_PORT} all_proxy=socks5://127.0.0.1:${PROXY_PORT}
+   ```
+
+    Test:
+
+    ```bash
+    curl -v http://google.com
+    ```
 
 ## Web controller
 
@@ -82,4 +114,7 @@ If no problem in step 1, 2 but step 3 failed, switch the proxy node (See **Web c
 
 2. Open [yacd.haishan.me](https://yacd.haishan.me/) in Chrome browser, setup backend ip, port and secret.
 
+## Debug
+
+See logs in `/tmp/$USER/clash/log/clash.log` and `/tmp/$USER/clash/log/clash.err`.
 

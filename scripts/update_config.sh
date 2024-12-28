@@ -28,3 +28,11 @@ sed -i "0,/redir-port:/{/redir-port:/d;}" ${cfgpath}
 # set controller
 sed -i "0,/external-controller:/s/external-controller:/external-controller: \'0.0.0.0:${CLASH_CTL_PORT}\' \#/" ${cfgpath}
 sed -i "0,/secret:/s/secret:/secret: \'${CLASH_SECRET}\' #/" ${cfgpath}
+
+################################
+# Create clash-forward-mac.sh
+################################
+sed -e "s/__CLASH_MIXED_PORT__/${CLASH_MIXED_PORT}/" \
+    -e "s/__CLASH_CTL_PORT__/${CLASH_CTL_PORT}/" \
+    ${curpath}/template/clash-forward-mac.sh > ${curpath}/clash-forward-mac.sh
+

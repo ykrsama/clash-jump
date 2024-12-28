@@ -1,2 +1,3 @@
 .env
 nohup.out
+scripts/clash-forward-mac.sh

@@ -2,7 +2,9 @@
 
 function install() {
     echo -e "\033[33mInstalling service\033[0m"
-    mkdir -p ~/.config/systemd/user/
+    mkdir -p ~/.config/systemd/user
+    mkdir -p /tmp/$USER/clash/log
+
     cat>~/.config/systemd/user/clash.service<<EOF
 [Unit]
 Description=Clash Service
@@ -12,8 +14,8 @@ After=network.target
 ExecStart=${clash}
 Restart=always
 WorkingDirectory=${mypath}
-#StandardOutput=append:${mypath}/log/clash.log
-#StandardError=append:${mypath}/log/clash.err
+StandardOutput=append:/tmp/$USER/clash/log/clash.log
+StandardError=append:/tmp/$USER/clash/log/clash.err
 EOF
 
     systemctl --user daemon-reload
