@@ -2,7 +2,7 @@
 
 Setup clash on linux server without sudo, and use it as a proxy server.
 
-## First setup
+## First setup on jump server
 
 1. Create `.env` file:
 
