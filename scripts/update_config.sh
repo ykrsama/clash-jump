@@ -19,6 +19,8 @@ mkdir -p ~/.config/clash
 
 wget -O ${cfgpath} ${CLASH_SUBSCRIBE_URL}
 
+# Set log level
+sed -i "0,/log-level:/s/log-level:/log-level: error \#/" ${cfgpath}
 # Set mixed port
 sed -i "0,/mixed-port: [0-9]*/s/mixed-port: [0-9]*/mixed-port: ${CLASH_MIXED_PORT}/" ${cfgpath}
 sed -i "0,/^port: [0-9]*/s/^port: [0-9]*/mixed-port: ${CLASH_MIXED_PORT}/" ${cfgpath}

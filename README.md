@@ -83,5 +83,5 @@ curl -v google.com
 
 ## Debug
 
-See logs in `~/.cache/clash/log/service.log` and `~/.cache/clash/log/service.err` and web controller.
+See logs in `~/.cache/clash/log/` or web controller.
 
