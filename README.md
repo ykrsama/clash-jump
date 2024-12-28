@@ -46,39 +46,43 @@ Setup clash on linux server without sudo, and use it as a proxy server.
 
 ## On local machine
 
-1. Setup port forwarding and system proxy on. 
+**For mac user**:
+   1. Copy `scripts/clash-forward-mac.sh` to your local machine 
+   2. Run `./clash-forward-mac.sh` on local machine
 
-   **For mac user**:
-   - copy `scripts/clash-forward-mac.sh` to your local machine 
-   - run `./clash-forward-mac.sh` on local machine
+   This script will create ssh tunnel and setup system proxy. And will reset the system proxy when the script is terminated.
 
-   **For windows user (Automation script WIP)**:
-   - Setup ssh-tunnel with Putty or MobaXterm or other tools.
-   - Set system proxy
+**For windows user (Automation script WIP)**:
+   1. Setup ssh-tunnel with Putty or MobaXterm or other tools.
+   2. Setup system proxy
 
-   **For linux user (Automation script WIP)**:
-   - Run the following command:
+**For linux user (Automation script WIP)**:
+   1. Run the following command to create ssh tunnel:
    ```bash
-   PROXY_PORT='same as CLASH_MIXED_PORT' \
-   CTL_PORT='same as CLASH_CTL_PORT' \
+   PROXY_PORT=''; \
+   CTL_PORT=''; \
    ssh -N -L ${PROXY_PORT}:localhost:${PROXY_PORT} \
        -L ${CTL_PORT}:localhost:${CTL_PORT} \
        lxlogin  # Jump server hostname
    ```
-   - Set system proxy
 
-2. Optional: set proxy in terminal:
+   2. Setup system proxy
+
+**Optional: use proxy in terminal**
 
    **mac/linux**:
    ```bash
-   PROXY_PORT=<port1>; CTL_PORT=<port2>; export https_proxy=http://127.0.0.1:${PROXY_PORT} http_proxy=http://127.0.0.1:${PROXY_PORT} all_proxy=socks5://127.0.0.1:${PROXY_PORT}
+   PROXY_PORT=''; \
+   export https_proxy=http://127.0.0.1:${PROXY_PORT} \
+   http_proxy=http://127.0.0.1:${PROXY_PORT} \
+   all_proxy=socks5://127.0.0.1:${PROXY_PORT}
    ```
 
-    Test:
+   Test:
 
-    ```bash
-    curl -v http://google.com
-    ```
+   ```bash
+   curl -v http://google.com
+   ```
 
 ## Web controller
 
