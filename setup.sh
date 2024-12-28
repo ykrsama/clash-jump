@@ -22,7 +22,7 @@ EOF
 function ctl_clash() {
     if [[ $1 == "start" || $1 == "restart" ]]; then
         #mkdir -p log
-        if [[ $(systemctl --user is-active clash) == "inactive" ]]; then
+        if [[ $(systemctl --user is-active clash) != "active" || $(systemctl --user is-active clash) != "failed" ]]; then
             install
         fi
     fi
