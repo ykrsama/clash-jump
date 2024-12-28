@@ -1,6 +1,6 @@
 # Clash on Jump Server
 
-Setup clash + ssh-tunnel on linux jump server.
+Setup clash on linux server without sudo, and use it as a proxy jump server.
 
 ## First setup on jump server
 
