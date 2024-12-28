@@ -11,7 +11,7 @@ function install() {
 
     # Schedule update config every hour
     echo -e "\033[33mScheduling config subscription\033[0m"
-    SCHEDULE="0 * * * *"  # Every hour as an example
+    SCHEDULE="0 * * * *"  # minute hour day month week
     CRON_JOB="$SCHEDULE $COMMAND"
     if crontab -l 2>/dev/null | grep -qF "$COMMAND"; then
         echo "The cron job already exists (≧▽≦)"
