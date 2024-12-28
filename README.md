@@ -8,7 +8,7 @@ export CLASH_SUBSCRIBE_URL=<url>
 export CLASH_SECRET='<set your secret for clash controller>'
 ```
 
-2. Modify port in `scripts/update_config.sh`, and run `./scripts/update_config.sh` . The config file will be downloaded to `~/.config/clash/config.yaml`
+2. Choose your `mixed_port` and `external_controller_port` in `scripts/update_config.sh`, and run `./scripts/update_config.sh` . This will download the config file to `~/.config/clash/config.yaml`
 
 3. Use `crontab -e` to automate config update (every hour):
 
@@ -18,7 +18,7 @@ export CLASH_SECRET='<set your secret for clash controller>'
 
 ## Test
 
-1. Run test:
+1. Run test to check the port avaialbility:
 
 ```
 ./setup.sh test
@@ -27,12 +27,15 @@ export CLASH_SECRET='<set your secret for clash controller>'
 2. On local machine, start port forwarding:
 
 ```
-ssh -N -L <proxy_port>:localhost:<proxy_port> -L <controller_port>:localhost:<controller_port> lxlogin
+PROXY_PORT=<port1>; CTL_PORT=<port2>; ssh -N -L ${PROXY_PORT}:localhost:${PROXY_PORT} -L ${CTL_PORT}:localhost:${CTL_PORT} lxlogin
 ```
 
-3. Setup system proxy on local machine. (for automation, see `clash-forward-mac.sh`)
+3. Open new terminal on local machine, test proxy:
 
-4. Open youtube.com on local web browser
+```bash
+PROXY_PORT=50000; CTL_PORT=50001; export https_proxy=http://127.0.0.1:${PROXY_PORT} http_proxy=http://127.0.0.1:${PROXY_PORT} all_proxy=socks5://127.0.0.1:${PROXY_PORT}
+curl -v http://google.com
+```
 
 ## Setup service
 
@@ -42,7 +45,7 @@ ssh -N -L <proxy_port>:localhost:<proxy_port> -L <controller_port>:localhost:<co
 ./setup.sh start
 ```
 
-2. Setup port forwarding and system proxy on local machine. (for automation, see `clash-forward-mac.sh`)
+2. Setup port forwarding and system proxy on local machine. (for automation example, see `scripts/clash-forward-mac.sh`)
 
 ## Control panel
 
