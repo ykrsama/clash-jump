@@ -1,7 +1,7 @@
 #!/bin/zsh
 
-proxy_port=50000
-controller_port=50001
+proxy_port=45000
+controller_port=45001
 
 function cleanup() {
     echo "Resetting system proxy"
@@ -22,7 +22,6 @@ function set_system_proxy() {
     networksetup -setproxybypassdomains "Wi-Fi" \
     "192.168.0.0/16" "10.0.0.0/8" "172.16.0.0/12" "127.0.0.1" "localhost" "*.local" \
     "timestamp.apple.com" "sequoia.apple.com" "seed-sequoia.siri.apple.com" "*.crashlytics.com" \
-    "fyapi.net" "100.91.208.82" "100.123.197.14" "100.91.208.82" "100.67.221.6" "100.66.76.72" \
     "*.overleaf.com" "*.overleaf.cn" "*.overleaf.net" \
     "indico.cern.ch" "*.bnl.gov" "*.ihep.ac.cn" "*.zoom.us" "*.sjtu.edu.cn" "*.aps.org"
 }
