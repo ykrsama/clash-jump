@@ -11,9 +11,9 @@ After=network.target
 [Service]
 ExecStart=${clash}
 Restart=always
-WorkingDirectory=${curpath}
-#StandardOutput=append:${curpath}/log/clash.log
-#StandardError=append:${curpath}/log/clash.err
+WorkingDirectory=${mypath}
+#StandardOutput=append:${mypath}/log/clash.log
+#StandardError=append:${mypath}/log/clash.err
 EOF
 
     systemctl --user daemon-reload
@@ -38,9 +38,9 @@ function uninstall() {
     systemctl --user daemon-reload
 }
 
-workdir=$(pwd)
-curpath=$(dirname $(realpath $0))
-cd $curpath
+curpwd=$(pwd)
+mypath=$(dirname $(realpath $0))
+cd $mypath
 
 source scripts/get_cpu_arch.sh
 
@@ -50,11 +50,11 @@ if [[ -z "$CpuArch" ]]; then
 fi
 
 if [[ $CpuArch =~ "x86_64" || $CpuArch =~ "amd64"  ]]; then
-    clash=$curpath/bin/clash-linux-amd64
+    clash=$mypath/bin/clash-linux-amd64
 elif [[ $CpuArch =~ "aarch64" ||  $CpuArch =~ "arm64" ]]; then
-    clash=$curpath/bin/clash-linux-arm64
+    clash=$mypath/bin/clash-linux-arm64
 elif [[ $CpuArch =~ "armv7" ]]; then
-    clash=$curpath/bin/clash-linux-armv7
+    clash=$mypath/bin/clash-linux-armv7
 else
     echo -e "\033[31m\n[ERROR] Unsupported CPU Architecture ${CpuArch} >< \033[0m"
     exit 1
@@ -75,4 +75,4 @@ else
     echo -e "\033[33mUsage: $0 [test|start|stop|restart|uninstall]\033[0m"
 fi
 
-cd $workdir
+cd $curpwd

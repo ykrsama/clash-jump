@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
-mixed_port=50000
-external_controller_port=50001
+mixed_port=43000
+external_controller_port=43001
 
 curpath=$(dirname $(realpath $0))
 cfgpath=~/.config/clash/config.yaml
@@ -20,4 +20,4 @@ sed -i "0,/socks-port:/{/socks-port:/d;}" ${cfgpath}
 sed -i "0,/redir-port:/{/redir-port:/d;}" ${cfgpath}
 # set controller
 sed -i "0,/external-controller:/s/external-controller:/external-controller: \'0.0.0.0:${external_controller_port}\' \#/" ${cfgpath}
-#sed -i "0,/secret:/s/secret:/secret: \'${CLASH_SECRET}\' #/" ${cfgpath}
+sed -i "0,/secret:/s/secret:/secret: \'${CLASH_SECRET}\' #/" ${cfgpath}

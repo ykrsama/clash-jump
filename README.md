@@ -11,9 +11,13 @@ export CLASH_SUBSCRIBE_URL=<subscription url here>
 export CLASH_SECRET='<set your secret for clash controller>'
 ```
 
+Note: Use browser to check your subscription link's content is in yaml format. If not, use ![clashc.monode.xyz](https://clashc.monode.xyz) to convert the subscription link.
+
 2. Choose your `mixed_port` and `external_controller_port` in `scripts/update_config.sh`, and run `./scripts/update_config.sh` . This will download the config file to `~/.config/clash/config.yaml`
 
-3. Use `crontab -e` to automate config update (every hour):
+3. Copy realpath of the update_config.sh: `realpath scripts/update_config.sh`
+
+4. Use `crontab -e` to automate config update (every hour):
 
 ```bash
 0 * * * * /path/to/scripts/update_config.sh
@@ -39,6 +43,8 @@ PROXY_PORT=<port1>; CTL_PORT=<port2>; ssh -N -L ${PROXY_PORT}:localhost:${PROXY_
 PROXY_PORT=<port1>; CTL_PORT=<port2>; export https_proxy=http://127.0.0.1:${PROXY_PORT} http_proxy=http://127.0.0.1:${PROXY_PORT} all_proxy=socks5://127.0.0.1:${PROXY_PORT}
 curl -v http://google.com
 ```
+
+If no problem in step 1, 2 but step 3 failed, switch the proxy node (See *Control panel* section)
 
 ## Setup service
 
