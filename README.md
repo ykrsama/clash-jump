@@ -78,8 +78,8 @@ curl -v google.com
    ![img](https://user-images.githubusercontent.com/38437979/136690045-a457f1c7-73da-40f0-b6a6-b76d82ec674a.png)
 
 2. Open <https://yacd.haishan.me/#/backend> in Chrome browser
-  - API Base URL: `127.0.0.1:<CLASH_CTL_PORT>`
-  - Secret(optional): `CLASH_SECRET`
+  - API Base URL: `127.0.0.1:<CLASH CTL PORT>`
+  - Secret(optional): `<CLASH SECRET>`
 
 ## Debug
 
