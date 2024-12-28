@@ -22,8 +22,7 @@ EOF
 function ctl_clash() {
     if [[ $1 == "start" || $1 == "restart" ]]; then
         #mkdir -p log
-        state=$(systemctl --user is-active clash)
-        if [[ ! -f ~/.config/systemd/user/clash.service ]]; then
+        if [[ ! -f "~/.config/systemd/user/clash.service" ]]; then
             install
         fi
     fi
@@ -43,7 +42,7 @@ curpwd=$(pwd)
 mypath=$(dirname $(realpath $0))
 cd $mypath
 
-source scripts/get_cpu_arch.sh
+source scripts/get_cpu_arch.sh &> /dev/null
 
 if [[ -z "$CpuArch" ]]; then
     echo "\033[32mFailed to get CPU architecture\033[0m"
@@ -75,8 +74,10 @@ elif [[ $1 == "stop" ]]; then
     ctl_clash "stop"
 elif [[ $1 == "restart" ]]; then
     ctl_clash "restart"
+elif [[ $1 == "status" ]]; then
+    ctl_clash "status"
 else
-    echo -e "\033[33mUsage: $0 [test|start|stop|restart|uninstall]\033[0m"
+    echo -e "\033[33mUsage: $0 [test|start|stop|restart|status|install|uninstall]\033[0m"
 fi
 
 cd $curpwd
