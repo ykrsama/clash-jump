@@ -1,4 +1,4 @@
-# Clash for Linux
+# Clash on Jump Server
 
 Setup clash on linux server without sudo, and use it as a proxy server.
 
