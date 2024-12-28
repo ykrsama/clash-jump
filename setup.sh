@@ -5,12 +5,12 @@ mypath=$(dirname $(realpath $0))
 
 function install() {
     # Download subscription
-    echo -e "\033[33mRunning scripts/update_config.sh\033[0m"
+    echo -e "\033[33mGetting config\033[0m"
     COMMAND="${mypath}/scripts/update_config.sh"
     ${COMMAND}
 
     # Schedule update config every hour
-    echo -e "\033[33mScheduling clash config subscription\033[0m"
+    echo -e "\033[33mScheduling config subscription\033[0m"
     SCHEDULE="0 * * * *"  # Every hour as an example
     CRON_JOB="$SCHEDULE $COMMAND"
     if crontab -l 2>/dev/null | grep -qF "$COMMAND"; then
@@ -44,7 +44,6 @@ EOF
 
 function ctl_clash() {
     if [[ $1 == "start" || $1 == "restart" ]]; then
-        #mkdir -p log
         if [[ ! -f "$HOME/.config/systemd/user/clash.service" ]]; then
             install
         fi
