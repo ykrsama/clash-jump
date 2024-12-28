@@ -36,7 +36,7 @@ PROXY_PORT=<port1>; CTL_PORT=<port2>; ssh -N -L ${PROXY_PORT}:localhost:${PROXY_
 3. Open new terminal on local machine, test proxy:
 
 ```bash
-PROXY_PORT=50000; CTL_PORT=50001; export https_proxy=http://127.0.0.1:${PROXY_PORT} http_proxy=http://127.0.0.1:${PROXY_PORT} all_proxy=socks5://127.0.0.1:${PROXY_PORT}
+PROXY_PORT=<port1>; CTL_PORT=<port2>; export https_proxy=http://127.0.0.1:${PROXY_PORT} http_proxy=http://127.0.0.1:${PROXY_PORT} all_proxy=socks5://127.0.0.1:${PROXY_PORT}
 curl -v http://google.com
 ```
 
