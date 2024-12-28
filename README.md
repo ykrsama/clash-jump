@@ -37,39 +37,16 @@ Setup clash on linux server without sudo, and use it as a proxy server.
 
    Note: `crontab -l` to check the crontab list.
 
-## Test
-
-1. Run test to check the port avaialbility:
-
-   ```
-   ./setup.sh test
-   ```
-
-2. On local machine, start port forwarding:
-
-   ```
-   PROXY_PORT=<port1>; CTL_PORT=<port2>; ssh -N -L ${PROXY_PORT}:localhost:${PROXY_PORT} -L ${CTL_PORT}:localhost:${CTL_PORT} lxlogin
-   ```
-
-3. Open new terminal on local machine, test proxy:
-
-   ```bash
-   PROXY_PORT=<port1>; CTL_PORT=<port2>; export https_proxy=http://127.0.0.1:${PROXY_PORT} http_proxy=http://127.0.0.1:${PROXY_PORT} all_proxy=socks5://127.0.0.1:${PROXY_PORT}
-   curl -v http://google.com
-   ```
-
-If no problem in step 1, 2 but step 3 failed, switch the proxy node (See **Web controller** section)
-
-## Setup service
-
-1. Install and run service:
+5. Install and run service:
 
    ```
    ./setup.sh start
    ```
    This will create a systemd service `clash.service` . You can check the status by `./setup.sh status` or `systemctl --user status clash`.
 
-2. Setup port forwarding and system proxy on local machine. 
+## On local machine
+
+1. Setup port forwarding and system proxy on. 
 
    **For mac user**:
    - copy `scripts/clash-forward-mac.sh` to your local machine 
@@ -90,7 +67,7 @@ If no problem in step 1, 2 but step 3 failed, switch the proxy node (See **Web c
    ```
    - Set system proxy
 
-3. Optional: set proxy on local terminal:
+2. Optional: set proxy in terminal:
 
    **mac/linux**:
    ```bash
