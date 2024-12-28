@@ -6,12 +6,12 @@ Setup clash on linux server without sudo, and use it as a proxy server.
 
 1. Create `.env` file:
 
-```bash
-export CLASH_SUBSCRIBE_URL=<subscription url here>
-export CLASH_SECRET='<set your secret for clash controller>'
-```
+   ```bash
+   export CLASH_SUBSCRIBE_URL=<subscription url here>
+   export CLASH_SECRET='<set your secret for clash controller>'
+   ```
 
-Note: Use browser to check your subscription link's content is in yaml format. If not, use ![clashc.monode.xyz](https://clashc.monode.xyz) to convert the subscription link.
+   Note: Use browser to check your subscription link's content is in yaml format. If not, use [clashc.monode.xyz](https://clashc.monode.xyz) to convert the subscription link.
 
 2. Choose your `mixed_port` and `external_controller_port` in `scripts/update_config.sh`, and run `./scripts/update_config.sh` . This will download the config file to `~/.config/clash/config.yaml`
 
@@ -19,30 +19,30 @@ Note: Use browser to check your subscription link's content is in yaml format. I
 
 4. Use `crontab -e` to automate config update (every hour):
 
-```bash
-0 * * * * /path/to/scripts/update_config.sh
-```
+   ```bash
+   0 * * * * /path/to/scripts/update_config.sh
+   ```
 
 ## Test
 
 1. Run test to check the port avaialbility:
 
-```
-./setup.sh test
-```
+   ```
+   ./setup.sh test
+   ```
 
 2. On local machine, start port forwarding:
 
-```
-PROXY_PORT=<port1>; CTL_PORT=<port2>; ssh -N -L ${PROXY_PORT}:localhost:${PROXY_PORT} -L ${CTL_PORT}:localhost:${CTL_PORT} lxlogin
-```
+   ```
+   PROXY_PORT=<port1>; CTL_PORT=<port2>; ssh -N -L ${PROXY_PORT}:localhost:${PROXY_PORT} -L ${CTL_PORT}:localhost:${CTL_PORT} lxlogin
+   ```
 
 3. Open new terminal on local machine, test proxy:
 
-```bash
-PROXY_PORT=<port1>; CTL_PORT=<port2>; export https_proxy=http://127.0.0.1:${PROXY_PORT} http_proxy=http://127.0.0.1:${PROXY_PORT} all_proxy=socks5://127.0.0.1:${PROXY_PORT}
-curl -v http://google.com
-```
+   ```bash
+   PROXY_PORT=<port1>; CTL_PORT=<port2>; export https_proxy=http://127.0.0.1:${PROXY_PORT} http_proxy=http://127.0.0.1:${PROXY_PORT} all_proxy=socks5://127.0.0.1:${PROXY_PORT}
+   curl -v http://google.com
+   ```
 
 If no problem in step 1, 2 but step 3 failed, switch the proxy node (See *Control panel* section)
 
@@ -50,9 +50,9 @@ If no problem in step 1, 2 but step 3 failed, switch the proxy node (See *Contro
 
 1. Install and run service:
 
-```
-./setup.sh start
-```
+   ```
+   ./setup.sh start
+   ```
 This will create a systemd service `clash.service` . You can check the status by `systemctl --user status clash`.
 
 2. Setup port forwarding and system proxy on local machine. (for automation example, see `scripts/clash-forward-mac.sh`)
@@ -60,11 +60,11 @@ This will create a systemd service `clash.service` . You can check the status by
 ## Control panel
 
 1. Disable Chrome "Block insecure private network requests":
-```
-chrome://flags/#block-insecure-private-network-requests
-```
+   ```
+   chrome://flags/#block-insecure-private-network-requests
+   ```
 
-![img](https://user-images.githubusercontent.com/38437979/136690045-a457f1c7-73da-40f0-b6a6-b76d82ec674a.png)
+   ![img](https://user-images.githubusercontent.com/38437979/136690045-a457f1c7-73da-40f0-b6a6-b76d82ec674a.png)
 
 2. Open [yacd.haishan.me](https://yacd.haishan.me/) in Chrome browser, setup backend ip, port and secret.
 
