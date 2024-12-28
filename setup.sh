@@ -4,12 +4,12 @@ curpwd=$(pwd)
 mypath=$(dirname $(realpath $0))
 
 function install() {
-    # Run the update script to download the subscription
+    # Download subscription
     echo -e "\033[33mRunning scripts/update_config.sh\033[0m"
     COMMAND="${mypath}/scripts/update_config.sh"
     ${COMMAND}
 
-    # Schedule the update script to run every hour
+    # Schedule update config every hour
     echo -e "\033[33mScheduling clash config subscription\033[0m"
     SCHEDULE="0 * * * *"  # Every hour as an example
     CRON_JOB="$SCHEDULE $COMMAND"
