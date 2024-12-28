@@ -67,7 +67,7 @@ If no problem in step 1, 2 but step 3 failed, switch the proxy node (See **Web c
    ```
    ./setup.sh start
    ```
-   This will create a systemd service `clash.service` . You can check the status by `systemctl --user status clash`.
+   This will create a systemd service `clash.service` . You can check the status by `./setup.sh status` or `systemctl --user status clash`.
 
 2. Setup port forwarding and system proxy on local machine. (for automation example, see `scripts/clash-forward-mac.sh`)
 
