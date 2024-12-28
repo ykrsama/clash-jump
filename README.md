@@ -47,6 +47,7 @@ curl -v http://google.com
 ```
 ./setup.sh start
 ```
+This will create a systemd service `clash.service` . You can check the status by `systemctl --user status clash`.
 
 2. Setup port forwarding and system proxy on local machine. (for automation example, see `scripts/clash-forward-mac.sh`)
 
