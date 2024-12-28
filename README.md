@@ -8,9 +8,9 @@ Setup clash on linux server without sudo, and use it as a proxy server.
 
    ```bash
    export CLASH_SUBSCRIBE_URL="" # add subscription url here
-   export CLASH_SECRET="" # create a secret for clash web controller
    export CLASH_MIXED_PORT=45000  # choose a port for proxy
    export CLASH_CTL_PORT=45001  # choose port for web controller
+   export CLASH_SECRET="" # create a secret for clash web controller
    ```
 
    Note: Use browser to check your subscription link's content is in yaml format. If not, use [clashc.monode.xyz](https://clashc.monode.xyz) to convert the subscription link.
@@ -77,7 +77,9 @@ curl -v google.com
 
    ![img](https://user-images.githubusercontent.com/38437979/136690045-a457f1c7-73da-40f0-b6a6-b76d82ec674a.png)
 
-2. Open [yacd.haishan.me](https://yacd.haishan.me/) in Chrome browser, setup backend ip, port and secret.
+2. Open <https://yacd.haishan.me/#/backend> in Chrome browser
+  - API Base URL: `127.0.0.1:<CLASH_CTL_PORT>`
+  - Secret(optional): `CLASH_SECRET`
 
 ## Debug
 
