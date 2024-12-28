@@ -7,7 +7,7 @@ Setup clash on linux server without sudo, and use it as a proxy server.
 1. Create `.env` file:
 
    ```bash
-   export CLASH_SUBSCRIBE_URL=<subscription url here>
+   export CLASH_SUBSCRIBE_URL='<subscription url here>'
    export CLASH_SECRET='<set your secret for clash controller>'
    ```
 
