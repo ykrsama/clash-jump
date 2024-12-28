@@ -1,7 +1,8 @@
 #!/bin/zsh
 
-proxy_port=__CLASH_MIXED_PORT__
-controller_port=__CLASH_CTL_PORT__
+proxy_port="__CLASH_MIXED_PORT__"
+controller_port="__CLASH_CTL_PORT__"
+secret="__CLASH_SECRET__"
 
 function cleanup() {
     echo "Resetting system proxy"
@@ -29,6 +30,17 @@ function set_system_proxy() {
 trap "cleanup" INT
 set_system_proxy ${proxy_port}
 
+WEB_CTL_URL="https://yacd.haishan.me/#/backend"
+echo "Opening web controller:"
+echo $WEB_CTL_URL
+# Open url in chrome
+open -a "Google Chrome" $WEB_CTL_URL
+echo "First time setup:"
+echo "    API Base URL = http://127.0.0.1:${controller_port}"
+if [[ ! -z $secret ]]; then
+    echo "    Secret = $secret"
+fi
+echo ""
 echo "Port forwarding..."
 ssh -N -L ${proxy_port}:localhost:${proxy_port} -L ${controller_port}:localhost:${controller_port} lxlogin
 
