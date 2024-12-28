@@ -81,7 +81,7 @@ Setup clash on linux server without sudo, and use it as a proxy server.
    Test:
 
    ```bash
-   curl -v http://google.com
+   curl -v google.com
    ```
 
 ## Web controller
