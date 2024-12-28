@@ -44,7 +44,7 @@ Setup clash on linux server without sudo, and use it as a proxy server.
    curl -v http://google.com
    ```
 
-If no problem in step 1, 2 but step 3 failed, switch the proxy node (See *Control panel* section)
+If no problem in step 1, 2 but step 3 failed, switch the proxy node (See **Control panel** section)
 
 ## Setup service
 
