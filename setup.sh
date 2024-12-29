@@ -81,13 +81,29 @@ else
     exit 1
 fi
 
+SERVICE_OK=True
+# Check if the systemctl can get D-Bus connection
+if [[ -z "$DBUS_SESSION_BUS_ADDRESS" ]]; then
+    echo -e "\033[31m\n[WARNING] D-Bus connection is not available >< \033[0m"
+    SERVICE_OK=False
+# Check if crontab is allowed
+elif [[ $(crontab -l 2>&1 >/dev/null) == *"not allowed to access"* ]]; then
+    echo -e "\033[31m\n[WARNING] Crontab is not allowed >< \033[0m"
+    SERVICE_OK=False
+fi
+
 
 if [[ $1 == "install" ]]; then
     install
 elif [[ $1 == "uninstall" ]]; then
     uninstall
 elif [[ $1 == "start" ]]; then
-    ctl_clash "start"
+    if [[ $SERVICE_OK == "True" ]]; then
+        ctl_clash "start"
+    else
+        echo "Falling to simple mode"
+        $clash
+    fi
 elif [[ $1 == "stop" ]]; then
     ctl_clash "stop"
 elif [[ $1 == "restart" ]]; then
