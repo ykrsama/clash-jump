@@ -41,6 +41,6 @@ if [[ ! -z $secret ]]; then
     echo "    Secret = $secret"
 fi
 echo ""
-echo "Port forwarding..."
+echo "SSH tunneling..."
 ssh -N -L ${proxy_port}:localhost:${proxy_port} -L ${controller_port}:localhost:${controller_port} lxlogin
 

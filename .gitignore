@@ -1,6 +1,7 @@
 .env
 nohup.out
 scripts/clash-forward-mac.sh
+scripts/clash-tunnel-mac.sh
 Country.mmdb
 cache.db
 config.yaml

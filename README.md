@@ -1,6 +1,6 @@
 # Clash on Jump Server
 
-Setup clash on linux server without sudo, and use it as a proxy jump server.
+Setup clash on linux server + ssh tunnel to make it a proxy jump server.
 
 ## First setup on jump server
 
@@ -27,8 +27,8 @@ Setup clash on linux server without sudo, and use it as a proxy jump server.
 
 ### For mac user:
 
-1. Copy `scripts/clash-forward-mac.sh` to your local machine 
-2. Run `./clash-forward-mac.sh` on local machine
+1. Copy `scripts/clash-tunnel-mac.sh` to your local machine 
+2. Run `./clash-tunnel-mac.sh` on local machine
 
 This script will create ssh tunnel and setup system proxy. And will reset the system proxy when the script is terminated.
 

@@ -32,12 +32,12 @@ sed -i "0,/external-controller:/s/external-controller:/external-controller: \'0.
 sed -i "0,/secret:/s/secret:/secret: \'${CLASH_SECRET}\' #/" ${cfgpath}
 
 ################################
-# Create clash-forward-mac.sh
+# Create clash-tunnel-mac.sh
 ################################
-echo "Creating ${curpath}/clash-forward-mac.sh"
+echo "Creating ${curpath}/clash-tunnel-mac.sh"
 sed -e "s/__CLASH_MIXED_PORT__/${CLASH_MIXED_PORT}/" \
     -e "s/__CLASH_CTL_PORT__/${CLASH_CTL_PORT}/" \
     -e "s/__CLASH_SECRET__/${CLASH_SECRET}/" \
-    ${curpath}/template/clash-forward-mac.sh > ${curpath}/clash-forward-mac.sh
+    ${curpath}/template/clash-tunnel-mac.sh > ${curpath}/clash-tunnel-mac.sh
 
 echo "Done."
