@@ -24,7 +24,7 @@ function install() {
     # Install the clash service
     echo -e "\033[33mInstalling clash service\033[0m"
     mkdir -p $HOME/.config/systemd/user
-    mkdir -p $HOME/.cache/clash/log
+    mkdir -p ${mypath}/log
 
     cat>$HOME/.config/systemd/user/clash.service<<EOF
 [Unit]
@@ -35,8 +35,8 @@ After=network.target
 ExecStart=${clash}
 Restart=always
 WorkingDirectory=${mypath}
-StandardOutput=append:${HOME}/.cache/clash/log/service.log
-StandardError=append:${HOME}/.cache/clash/log/service.err
+StandardOutput=append:${mypath}/log/service.log
+StandardError=append:${mypath}/log/service.err
 EOF
 
     systemctl --user daemon-reload
@@ -71,11 +71,11 @@ if [[ -z "$CpuArch" ]]; then
 fi
 
 if [[ $CpuArch =~ "x86_64" || $CpuArch =~ "amd64"  ]]; then
-    clash=$mypath/bin/clash-linux-amd64
+    clash="$mypath/bin/clash-linux-amd64 -d ./"
 elif [[ $CpuArch =~ "aarch64" ||  $CpuArch =~ "arm64" ]]; then
-    clash=$mypath/bin/clash-linux-arm64
+    clash="$mypath/bin/clash-linux-arm64 -d ./"
 elif [[ $CpuArch =~ "armv7" ]]; then
-    clash=$mypath/bin/clash-linux-armv7
+    clash="$mypath/bin/clash-linux-armv7 -d ./"
 else
     echo -e "\033[31m\n[ERROR] Unsupported CPU Architecture ${CpuArch} >< \033[0m"
     exit 1

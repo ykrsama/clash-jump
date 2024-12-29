@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 curpath=$(dirname $(realpath $0))
-cfgpath=~/.config/clash/config.yaml
+cfgpath=${curpath}/../config.yaml
 
 source ${curpath}/../.env
 
@@ -15,7 +15,7 @@ if [[ -z $CLASH_CTL_PORT ]]; then
     exit 1
 fi
 
-mkdir -p ~/.config/clash
+#mkdir -p ~/.config/clash
 
 wget -O ${cfgpath} ${CLASH_SUBSCRIBE_URL}
 
