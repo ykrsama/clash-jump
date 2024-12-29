@@ -102,9 +102,9 @@ elif [[ $1 == "start" ]]; then
         echo "Falling to simple mode"
         echo -e "\033[33mRunning: nohup $clash &\033[0m"
         # Get pid of this process
+        nohup $clash &
         pid=$(ps -ef | grep  "clash-linux" | grep -v "grep" | awk '{print $2}')
         echo "pid: $pid"
-        nohup $clash &
     fi
 elif [[ $1 == "stop" ]]; then
     ctl_clash "stop"
