@@ -6,7 +6,7 @@ mypath=$(dirname $(realpath $0))
 function install() {
     # Download subscription
     echo -e "\033[33mGetting config\033[0m"
-    COMMAND="${mypath}/scripts/update_config.sh"
+    COMMAND="${mypath}/scripts/update_config.sh 2>&1"
     ${COMMAND}
 
     # Schedule update config every hour
